@@ -187,7 +187,7 @@ ActiveRecord::Schema.define(version: 2020_07_01_041056) do
     t.index ["post_id"], name: "index_source_files_on_post_id"
   end
 
-  create_table "users", id: :string, limit: 36, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

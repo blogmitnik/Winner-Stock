@@ -22,12 +22,6 @@ class User < ApplicationRecord
 	validates :name, :username, presence: true, length: { minimum: 2, maximum: 25 }
 	validates_uniqueness_of :username, :email, case_sensitive: false
 
-	before_validation :set_uuid, on: :create
-
-	def set_uuid
-		self.id = SecureRandom.uuid
-	end
-
 	after_create :send_admin_mail
 
 	def send_admin_mail
