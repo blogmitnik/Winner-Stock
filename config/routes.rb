@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
   use_doorkeeper
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  devise_for :users
-  root 'pages#home'
+  # Extending Devise - Custom Routing
+  devise_for :users,
+    path: '', # optional namespace or empty string for no space
+    path_names: {
+      sign_in: 'login',
+      sign_out: 'logout',
+      password: 'secret',
+      confirmation: 'verification',
+      registration: 'register',
+      sign_up: 'signup',
+      invitation: 'invite'
+    }
+  root 'home#index'
 end

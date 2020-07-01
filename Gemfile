@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+gem 'toastr-rails'
+
 gem 'unicorn'
 
 group :development, :test do
@@ -63,6 +65,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'friendly_id', '~> 5.3'
+gem 'friendly_id-globalize'
+gem 'globalize'
+gem 'globalize-accessors'
 gem 'sidekiq', '~> 6.0', '>= 6.0.1'
 
 gem 'whenever', :require => false
@@ -99,6 +104,7 @@ gem 'compass'
 gem 'twitter-bootstrap-rails'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
+gem 'devise_invitable'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-fileinput'

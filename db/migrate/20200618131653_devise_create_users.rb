@@ -2,8 +2,9 @@
 
 class DeviseCreateUsers < ActiveRecord::Migration[6.0]
   def change
-    create_table :users do |t|
+    create_table :users, id: false do |t|
       ## Database authenticatable
+      t.string :id, limit: 36, primary_key: true, null: false
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
@@ -35,6 +36,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.string :username
       t.string :name
       t.boolean :admin, default: false
+      t.string :slug, unique: true
 
       t.timestamps null: false
     end

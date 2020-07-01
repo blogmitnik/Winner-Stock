@@ -1,0 +1,2 @@
+class SourceFilesController < ApplicationController
+end

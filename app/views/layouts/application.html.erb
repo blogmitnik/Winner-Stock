@@ -14,10 +14,22 @@
 
   <body class="sidebar-mini">
     <div class="wrapper">
-      <%= render partial: "layouts/header" %>
-      <div class="content-wrapper">
-        <%= yield %>
-      </div>
+      <header class="mb-4">
+        <%= render partial: "layouts/header" %>
+      </header>
+
+      <% unless flash.empty? %>
+        <script type="text/javascript">
+          <% flash.each do |f| %>
+            <% type = f[0].to_s.gsub('alert', 'error').gsub('notice', 'info') %>
+            toastr['<%= type %>']('<%= f[1] %>');
+          <% end %>
+        </script>
+      <% end %>
+
+      <main class="lg:px-10 px-4">
+        <%= content_for?(:content) ? yield(:content) : yield %>
+      </main>
       <%= render partial: "layouts/footer" %>
     </div>
   </body>
