@@ -1,0 +1,64 @@
+- if params[:commit] == 'GlobalSearch'
+  %ul.nav.nav-tabs{:style => "margin-bottom: 5px;"}
+    / Show tab for Global Search results
+    %li.active{:role => "presentation"}
+      %a{:href => "#"}
+        %span.glyphicon.glyphicon-search
+        查詢結果
+        %span.badge= @reports_for_cart.count.to_i
+- else
+  %ul.nav.nav-tabs{:style => "margin-bottom: 5px;"}
+    - if params[:date].nil? && params[:date_range].nil? && params[:to_date].nil? && params[:date1].nil? && params[:date2].nil? && params[:date3].nil? && params[:station].nil?
+      %li.active{:role => "presentation"}
+        %a.date_select_tab{:href => url_for(:controller => controller.controller_name, :action => controller.action_name, :date => 'today', :from_station => params[:from_station], :build => params[:build])}
+          %span.glyphicon.glyphicon-list
+          分類指數總覽
+          - if current_page?(:controller => controller.controller_name, :action => controller.action_name, :page => params[:page], :build => params[:build])
+            %span.badge= @reports_for_cart.count.to_i
+    - else
+      %li{:role => "presentation", :class => active_class(:controller => controller.controller_name, :action => controller.action_name, :date => 'today', :data_period => params[:data_period], :from_station => params[:from_station], :page => params[:page], :build => params[:build])}
+        %a.date_select_tab{:href => url_for(:controller => controller.controller_name, :action => controller.action_name, :from_station => params[:from_station], :date => 'today', :build => params[:build])}
+          %span.glyphicon.glyphicon-list
+          分類指數總覽
+          - if current_page?(:controller => controller.controller_name, :action => controller.action_name, :date => 'today', :data_period => params[:data_period], :from_station => params[:from_station], :page => params[:page], :build => params[:build])
+            %span.badge= @reports_for_cart.count.to_i
+
+    / Show tab for Search results
+    - if !params[:date_range].nil? || !params[:date1].nil? || !params[:date2].nil? || !params[:date3].nil?
+      %li.active{:role => "presentation"}
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-search
+          查詢結果
+          %span.badge
+            總共
+            = @distinct_date.count
+            天有交易資料
+
+    - if !params[:category].nil? && !params[:search_type].nil?
+      %li.active{:role => "presentation"}
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-search
+          證券資料
+          %span.badge= @reports_for_cart.count.to_i
+
+:javascript
+  $(document).ready(function() {
+    $('.date_select_tab').click(function() {
+      // show spinner on AJAX start
+      $(document).ajaxStart(function(){
+        $(".sk-three-bounce").show();
+        $("#search-box").fadeTo("fast", 0.3);
+        $("#date-selector").fadeTo("fast", 0.3);
+        $(".record_lists").fadeTo("fast", 0.3);
+        $(".chart_section").fadeTo("fast", 0.3);
+      });
+      // hide spinner on AJAX stop
+      $(document).ajaxStop(function(){
+        $(".sk-three-bounce").hide();
+        $("#search-box").fadeTo("fast", 1.0);
+        $("#date-selector").fadeTo("fast", 1.0);
+        $(".record_lists").fadeTo("fast", 1.0);
+        $(".chart_section").fadeTo("fast", 1.0);
+      });
+    });
+  });

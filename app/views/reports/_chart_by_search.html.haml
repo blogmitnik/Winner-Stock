@@ -1,0 +1,8 @@
+- if params[:category].present? && params[:category] != ""
+  = render :partial => "reports/best_percentage_cart"
+- elsif params[:from_category].present? && params[:from_category] != ""
+  = render :partial => "categories/station_yield_cart"
+- elsif params[:from_report].present? && params[:from_report] != ""
+  = render :partial => "configs/yield_ratio_chart"
+- else
+  = render :partial => "posts/worst_yield_cart"

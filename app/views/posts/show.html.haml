@@ -1,0 +1,12 @@
+- navigation_add '功能模組', posts_path
+- navigation_add @post.title, post_path(@post)
+
+%h2.page-header
+  = @post.title
+  %small 各項分類指數及上市公司交易資料
+
+.form-group
+  .row
+    .col-md-12
+      #yield-report
+        = render :partial => "shared/yield_report"

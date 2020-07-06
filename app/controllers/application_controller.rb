@@ -10,12 +10,12 @@ class ApplicationController < ActionController::Base
     class Forbidden < ActionController::ActionControllerError; end
 	class IpAddressRejected < ActionController::ActionControllerError; end
 
-	rescue_from Exception, with: :rescue500
-	rescue_from Forbidden, with: :rescue403
-	rescue_from IpAddressRejected, with: :rescue403
-	rescue_from ActionController::RoutingError, with: :rescue404
-	rescue_from ActiveRecord::RecordNotFound, with: :rescue404
-	rescue_from Timeout::Error, with: :rescue524
+	# rescue_from Exception, with: :rescue500
+	# rescue_from Forbidden, with: :rescue403
+	# rescue_from IpAddressRejected, with: :rescue403
+	# rescue_from ActionController::RoutingError, with: :rescue404
+	# rescue_from ActiveRecord::RecordNotFound, with: :rescue404
+	# rescue_from Timeout::Error, with: :rescue524
 
     protected
 
@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
 			    datetime.yesterday.year, datetime.yesterday.month, datetime.yesterday.day, 6, datetime.day, 6)
 			end
 
-			if params[:my_post_id].present? # For station page
+			if params[:post_id].present? # For station page
 			  if params[:data_period].present? && params[:data_period] == "hourly"
 			    return reports
 			  else
@@ -70,7 +70,7 @@ class ApplicationController < ActionController::Base
 		def get_today_yield(post, reports)
 			last_record = post.reports.order("published_at DESC").first
 
-			if params[:my_post_id].present? # For station page
+			if params[:post_id].present? # For station page
 			  if params[:data_period].present? && params[:data_period] == "hourly"
 			    return reports
 			  else
@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
 			datetime = DateTime.parse(last_record.published_at.to_s)
 			reports = reports.where('published_at = ?', datetime.yesterday)
 
-			if params[:my_post_id].present?
+			if params[:post_id].present?
 			  if params[:data_period].present? && params[:data_period] == "hourly"
 			   return reports
 			 else
@@ -112,7 +112,7 @@ class ApplicationController < ActionController::Base
 			datetime = DateTime.parse(last_record.published_at.to_s)
 			reports = reports.where('published_at = ?', date)
 
-			if params[:my_post_id].present?
+			if params[:post_id].present?
 			  if params[:data_period].present? && params[:data_period] == "hourly"
 			   return reports
 			 else

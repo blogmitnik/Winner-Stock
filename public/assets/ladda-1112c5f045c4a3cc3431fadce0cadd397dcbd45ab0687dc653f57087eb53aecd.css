@@ -1,0 +1,505 @@
+/*!
+ * Ladda
+ * http://lab.hakim.se/ladda
+ * MIT licensed
+ *
+ * Copyright (C) 2016 Hakim El Hattab, http://hakim.se
+ */
+/*************************************
+ * CONFIG
+ */
+/*************************************
+ * MIXINS
+ */
+/*************************************
+ * BUTTON BASE
+ */
+/* line 60, app/assets/stylesheets/ladda.scss */
+.ladda-button {
+  position: relative;
+}
+
+/* Spinner animation */
+/* line 66, app/assets/stylesheets/ladda.scss */
+.ladda-button .ladda-spinner {
+  position: absolute;
+  z-index: 2;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  top: 50%;
+  margin-top: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Button label */
+/* line 79, app/assets/stylesheets/ladda.scss */
+.ladda-button .ladda-label {
+  position: relative;
+  z-index: 3;
+}
+
+/* Progress bar */
+/* line 85, app/assets/stylesheets/ladda.scss */
+.ladda-button .ladda-progress {
+  position: absolute;
+  width: 0;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.2);
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: 0.1s linear all !important;
+  -moz-transition: 0.1s linear all !important;
+  -ms-transition: 0.1s linear all !important;
+  -o-transition: 0.1s linear all !important;
+  transition: 0.1s linear all !important;
+}
+
+/* line 98, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-loading] .ladda-progress {
+  opacity: 1;
+  visibility: visible;
+}
+
+/*************************************
+ * EASING
+ */
+/* line 108, app/assets/stylesheets/ladda.scss */
+.ladda-button,
+.ladda-button .ladda-spinner,
+.ladda-button .ladda-label {
+  -webkit-transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+  -moz-transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+  -ms-transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+  -o-transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+}
+
+/* line 114, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-in],
+.ladda-button[data-style=zoom-in] .ladda-spinner,
+.ladda-button[data-style=zoom-in] .ladda-label,
+.ladda-button[data-style=zoom-out],
+.ladda-button[data-style=zoom-out] .ladda-spinner,
+.ladda-button[data-style=zoom-out] .ladda-label {
+  -webkit-transition: 0.3s ease all !important;
+  -moz-transition: 0.3s ease all !important;
+  -ms-transition: 0.3s ease all !important;
+  -o-transition: 0.3s ease all !important;
+  transition: 0.3s ease all !important;
+}
+
+/*************************************
+ * EXPAND LEFT
+ */
+/* line 129, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-right] .ladda-spinner {
+  right: -6px;
+}
+
+/* line 133, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-right][data-size="s"] .ladda-spinner, .ladda-button[data-style=expand-right][data-size="xs"] .ladda-spinner {
+  right: -12px;
+}
+
+/* line 138, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-right][data-loading] {
+  padding-right: 56px;
+}
+
+/* line 141, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-right][data-loading] .ladda-spinner {
+  opacity: 1;
+}
+
+/* line 145, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-right][data-loading][data-size="s"], .ladda-button[data-style=expand-right][data-loading][data-size="xs"] {
+  padding-right: 40px;
+}
+
+/*************************************
+ * EXPAND RIGHT
+ */
+/* line 158, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-left] .ladda-spinner {
+  left: 26px;
+}
+
+/* line 162, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-left][data-size="s"] .ladda-spinner, .ladda-button[data-style=expand-left][data-size="xs"] .ladda-spinner {
+  left: 4px;
+}
+
+/* line 167, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-left][data-loading] {
+  padding-left: 56px;
+}
+
+/* line 170, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-left][data-loading] .ladda-spinner {
+  opacity: 1;
+}
+
+/* line 174, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-left][data-loading][data-size="s"], .ladda-button[data-style=expand-left][data-loading][data-size="xs"] {
+  padding-left: 40px;
+}
+
+/*************************************
+ * EXPAND UP
+ */
+/* line 186, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-up] {
+  overflow: hidden;
+}
+
+/* line 189, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-up] .ladda-spinner {
+  top: -32px;
+  left: 50%;
+  margin-left: 0;
+}
+
+/* line 195, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-up][data-loading] {
+  padding-top: 54px;
+}
+
+/* line 198, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-up][data-loading] .ladda-spinner {
+  opacity: 1;
+  top: 26px;
+  margin-top: 0;
+}
+
+/* line 204, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-up][data-loading][data-size="s"], .ladda-button[data-style=expand-up][data-loading][data-size="xs"] {
+  padding-top: 32px;
+}
+
+/* line 208, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-up][data-loading][data-size="s"] .ladda-spinner, .ladda-button[data-style=expand-up][data-loading][data-size="xs"] .ladda-spinner {
+  top: 4px;
+}
+
+/*************************************
+ * EXPAND DOWN
+ */
+/* line 220, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-down] {
+  overflow: hidden;
+}
+
+/* line 223, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-down] .ladda-spinner {
+  top: 62px;
+  left: 50%;
+  margin-left: 0;
+}
+
+/* line 229, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-down][data-size="s"] .ladda-spinner, .ladda-button[data-style=expand-down][data-size="xs"] .ladda-spinner {
+  top: 40px;
+}
+
+/* line 234, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-down][data-loading] {
+  padding-bottom: 54px;
+}
+
+/* line 237, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-down][data-loading] .ladda-spinner {
+  opacity: 1;
+}
+
+/* line 241, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=expand-down][data-loading][data-size="s"], .ladda-button[data-style=expand-down][data-loading][data-size="xs"] {
+  padding-bottom: 32px;
+}
+
+/*************************************
+ * SLIDE LEFT
+ */
+/* line 252, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-left] {
+  overflow: hidden;
+}
+
+/* line 255, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-left] .ladda-label {
+  position: relative;
+}
+
+/* line 258, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-left] .ladda-spinner {
+  left: 100%;
+  margin-left: 0;
+}
+
+/* line 264, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-left][data-loading] .ladda-label {
+  opacity: 0;
+  left: -100%;
+}
+
+/* line 268, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-left][data-loading] .ladda-spinner {
+  opacity: 1;
+  left: 50%;
+}
+
+/*************************************
+ * SLIDE RIGHT
+ */
+/* line 279, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-right] {
+  overflow: hidden;
+}
+
+/* line 282, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-right] .ladda-label {
+  position: relative;
+}
+
+/* line 285, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-right] .ladda-spinner {
+  right: 100%;
+  margin-left: 0;
+  left: 16px;
+}
+
+/* line 292, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-right][data-loading] .ladda-label {
+  opacity: 0;
+  left: 100%;
+}
+
+/* line 296, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-right][data-loading] .ladda-spinner {
+  opacity: 1;
+  left: 50%;
+}
+
+/*************************************
+ * SLIDE UP
+ */
+/* line 307, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-up] {
+  overflow: hidden;
+}
+
+/* line 310, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-up] .ladda-label {
+  position: relative;
+}
+
+/* line 313, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-up] .ladda-spinner {
+  left: 50%;
+  margin-left: 0;
+  margin-top: 1em;
+}
+
+/* line 320, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-up][data-loading] .ladda-label {
+  opacity: 0;
+  top: -1em;
+}
+
+/* line 324, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-up][data-loading] .ladda-spinner {
+  opacity: 1;
+  margin-top: 0;
+}
+
+/*************************************
+ * SLIDE DOWN
+ */
+/* line 335, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-down] {
+  overflow: hidden;
+}
+
+/* line 338, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-down] .ladda-label {
+  position: relative;
+}
+
+/* line 341, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-down] .ladda-spinner {
+  left: 50%;
+  margin-left: 0;
+  margin-top: -2em;
+}
+
+/* line 348, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-down][data-loading] .ladda-label {
+  opacity: 0;
+  top: 1em;
+}
+
+/* line 352, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=slide-down][data-loading] .ladda-spinner {
+  opacity: 1;
+  margin-top: 0;
+}
+
+/*************************************
+ * ZOOM-OUT
+ */
+/* line 364, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-out] {
+  overflow: hidden;
+}
+
+/* line 367, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-out] .ladda-spinner {
+  left: 50%;
+  margin-left: 32px;
+  -webkit-transform: scale(2.5);
+  -moz-transform: scale(2.5);
+  -ms-transform: scale(2.5);
+  -o-transform: scale(2.5);
+  transform: scale(2.5);
+}
+
+/* line 373, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-out] .ladda-label {
+  position: relative;
+  display: inline-block;
+}
+
+/* line 378, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-out][data-loading] .ladda-label {
+  opacity: 0;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  -o-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+/* line 383, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-out][data-loading] .ladda-spinner {
+  opacity: 1;
+  margin-left: 0;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+}
+
+/*************************************
+ * ZOOM-IN
+ */
+/* line 395, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-in] {
+  overflow: hidden;
+}
+
+/* line 398, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-in] .ladda-spinner {
+  left: 50%;
+  margin-left: -16px;
+  -webkit-transform: scale(0.2);
+  -moz-transform: scale(0.2);
+  -ms-transform: scale(0.2);
+  -o-transform: scale(0.2);
+  transform: scale(0.2);
+}
+
+/* line 404, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-in] .ladda-label {
+  position: relative;
+  display: inline-block;
+}
+
+/* line 409, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-in][data-loading] .ladda-label {
+  opacity: 0;
+  -webkit-transform: scale(2.2);
+  -moz-transform: scale(2.2);
+  -ms-transform: scale(2.2);
+  -o-transform: scale(2.2);
+  transform: scale(2.2);
+}
+
+/* line 414, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=zoom-in][data-loading] .ladda-spinner {
+  opacity: 1;
+  margin-left: 0;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+}
+
+/*************************************
+ * CONTRACT
+ */
+/* line 426, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=contract] {
+  overflow: hidden;
+  width: 100px;
+}
+
+/* line 430, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=contract] .ladda-spinner {
+  left: 50%;
+  margin-left: 0;
+}
+
+/* line 435, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=contract][data-loading] {
+  border-radius: 50%;
+  width: 52px;
+}
+
+/* line 439, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=contract][data-loading] .ladda-label {
+  opacity: 0;
+}
+
+/* line 442, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=contract][data-loading] .ladda-spinner {
+  opacity: 1;
+}
+
+/*************************************
+ * OVERLAY
+ */
+/* line 452, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=contract-overlay] {
+  overflow: hidden;
+  width: 100px;
+  box-shadow: 0px 0px 0px 2000px rgba(0, 0, 0, 0);
+}
+
+/* line 458, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=contract-overlay] .ladda-spinner {
+  left: 50%;
+  margin-left: 0;
+}
+
+/* line 463, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=contract-overlay][data-loading] {
+  border-radius: 50%;
+  width: 52px;
+  /*outline: 10000px solid rgba( 0, 0, 0, 0.5 );*/
+  box-shadow: 0px 0px 0px 2000px rgba(0, 0, 0, 0.8);
+}
+
+/* line 470, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=contract-overlay][data-loading] .ladda-label {
+  opacity: 0;
+}
+
+/* line 473, app/assets/stylesheets/ladda.scss */
+.ladda-button[data-style=contract-overlay][data-loading] .ladda-spinner {
+  opacity: 1;
+}

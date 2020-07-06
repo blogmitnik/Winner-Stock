@@ -1,0 +1,109 @@
+- navigation_add '我的帳號', '/register/edit'
+
+%h2
+  我的帳號
+  %small 修改帳號資料
+
+%hr.colorgraph
+.container
+  .row
+    .col-md-8.personal-info
+      = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => "form-horizontal", role: "form" }) do |f|
+        
+        = bootstrap_devise_error_messages!
+
+        .form-group
+          = f.label :username, class: "col-lg-3 control-label"
+          .col-lg-8
+            = f.text_field :username, class: "form-control input-lg", id: "username-field"
+        .form-group
+          = f.label :name, class: "col-lg-3 control-label"
+          .col-lg-8
+            = f.text_field :name, class: "form-control input-lg", id: "name-field"
+        .form-group
+          = f.label :password, class: "col-lg-3 control-label"
+          .col-lg-8
+            = f.password_field :password, class: "form-control input-lg", :autocomplete => "off", id: "pwd-field"
+            %span.pwstrength_progress
+            %span.help-block 如果不需要修改密碼，請保留空白即可
+        .form-group
+          = f.label :password_confirmation, class: "col-lg-3 control-label"
+          .col-lg-8
+            = f.password_field :password_confirmation, class: "form-control input-lg", id: "confirm-pwd-field"
+        .form-group
+          = f.label :current_password, class: "col-lg-3 control-label"
+          .col-lg-8
+            = f.password_field :current_password, class: "form-control input-lg", id: "cur-pwd-field"
+            %span.help-block 你必須先輸入目前的密碼才能變更帳號資料
+        .form-group
+          %label.col-lg-3.control-label
+          .col-md-8
+            = submit_tag '儲存變更', class: 'btn btn-primary btn-lg tclick', id: 'sendButton', data: { disable_with: "正在儲存..." }
+
+    .col-md-4.input-group
+      %h3 不再使用服務？
+      %span.help-block 你可以永久刪除帳號
+      /= link_to "Cancel account", registration_path(resource_name), :data => { :confirm => "This is serious monkey business! Are you sure?" }, :method => :delete, class: "btn btn-danger", id: "delete-my-account"
+      = link_to "刪除帳號", '#', class: "btn btn-zoomshift", id: "delete-my-account"
+
+:javascript
+  $(document).ready(function (){
+    validate();
+    $('#email-field, #pwd-field, #confirm-pwd-field, #cur-pwd-field').keyup(validate);
+  });
+
+  function validate(){
+    if ( $('#email-field').val().length > 0 &&
+      $('#pwd-field').val().length > 0 &&
+      $('#confirm-pwd-field').val().length > 0 &&
+      $('#cur-pwd-field').val().length > 0) {
+      $("input[type=submit]").prop("disabled", false);
+    }
+    else {
+      $("input[type=submit]").prop("disabled", true);
+    }
+  }
+
+  $("#delete-my-account").click(function(event) {
+    event.preventDefault();
+    swal({
+      title: "你的帳號資料將被永久清除！", 
+      text: "請輸入你的密碼來進行這項操作", 
+      type: "input",
+      inputType: "password",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "好的，刪除",
+      cancelButtonText: "不了，取消",
+      closeOnConfirm: false,
+      closeOnCancel: true,
+      showLoaderOnConfirm: true
+    }, function(typedPassword) {
+
+      if (typedPassword === false) return false;
+      if (typedPassword === "") {
+        swal.showInputError("你必須輸入帳號密碼，才能進行這項操作！");
+        return false;
+      }
+      $.ajax({
+        url: "/delete_account",
+        data: { password: typedPassword },
+        type: "POST",
+        dataType: 'script'
+      })
+      .done(function(data) {
+        setTimeout(function(){
+          swal("感謝使用", "你的帳號和資料已經刪除完成！", "success");
+
+          $('button.confirm').click(function() {
+            setTimeout(function(){
+              $(location).attr('href','/')
+            }, 1000);
+          });
+        }, 2000);
+      })
+      .error(function(data) {
+        swal.showInputError("抱歉，你輸入的密碼不正確！");
+      });
+    });
+  });

@@ -1,0 +1,125 @@
+/#paginator-top
+/  = paginate @reports, remote: true
+.panel.panel-default
+  .panel-heading
+    .row
+      .col.col-xs-4
+        %span.glyphicon.glyphicon-stats
+        分類指數總覽
+      .col.col-xs-8.text-right
+        .btn-group
+          #dropdown-build-selector
+            = render :partial => "shared/dropdown_build_selector"
+
+  .panel-body
+    #no-data-found
+
+    #search-box
+      - if controller.controller_name == 'reports' && params[:commit] == "GlobalSearch"
+        = render :partial => "shared/global_search_box"
+      - else
+        %ul.nav.nav-tabs{:role => "tablist"}
+          %li.active{:role => "presentation"}
+            %a{"aria-controls" => "multidates-search", "data-toggle" => "tab", :href => "#multidates-search", :role => "tab"}
+              %span.glyphicon.glyphicon-th-list
+              多個日期
+          %li{:role => "presentation"}
+            %a{"aria-controls" => "daterange-search", "data-toggle" => "tab", :href => "#daterange-search", :role => "tab"}
+              %span.glyphicon.glyphicon-th-large
+              連續日期
+          %li{:role => "presentation"}
+            %a{"aria-controls" => "stock-search", "data-toggle" => "tab", :href => "#stock-search", :role => "tab"}
+              %span.glyphicon.glyphicon-search
+              查詢交易資料
+
+        .tab-content
+          #multidates-search.tab-pane.fade.in.active{:role => "tabpanel"}
+            = render :partial => "shared/search_box"
+          #daterange-search.tab-pane.fade{:role => "tabpanel"}
+            = render :partial => "shared/search_box_range"
+          #stock-search.tab-pane.fade{:role => "tabpanel"}
+            = render :partial => "shared/search_box_stock"
+
+    .panel.panel-custom.panel-default
+      .panel-body
+        #date-range
+          = render :partial => "shared/date_range"
+
+    / 分類指數百分比視覺圖表
+    #chart-graph
+      - if controller.controller_name == 'reports'
+        - if params[:config].present? && params[:config] != ""
+          #yield-ratio-chart-data.chart_section{:style => "margin-bottom: 20px"}
+            = render :partial => "configs/config_yield_chart"
+        - elsif params[:category].present? && params[:search_type].present?
+          #station-yield-cart.chart_section{:style => "margin-bottom: 20px"}
+            = render :partial => "reports/best_percentage_cart"
+        - else
+          #worst-yield-cart.chart_section{:style => "margin-bottom: 20px"}
+            = render :partial => "posts/worst_yield_cart"
+      - elsif controller.controller_name == 'posts'
+        #worst-yield-cart.chart_section{:style => "margin-bottom: 20px"}
+          = render :partial => "posts/worst_yield_cart"
+    / - elsif controller.controller_name == 'stations'
+    /   #station-yield-cart.chart_section{:style => "margin-bottom: 20px"}
+    /     = render :partial => "stations/station_yield_cart"
+
+    / Date Range Slider Box
+    / .entry-meta.row
+    /  %aside.meta-details-slider
+    /    #date-slider-box
+    /      = render :partial => "shared/date_slider"
+
+    / Date Selector Tab
+    #date-selector
+      = render :partial => "shared/date_selector"
+
+    .sk-three-bounce
+      .sk-child.sk-bounce1
+      .sk-child.sk-bounce2
+      .sk-child.sk-bounce3
+
+    #yield-items
+      = render :partial => "shared/yield_items", :object => @reports
+
+    / 'Load more report' button
+    #paginator
+      = link_to_next_page @reports, '載入更多資料', params: params, remote: true
+    
+  .panel-footer
+    .row
+      .col.col-xs-6
+        #page-info{:style => "margin-top: 5px"}
+          = render :partial => "shared/page_info_scroll"
+      .col.col-xs-6
+
+
+:javascript
+  $(".dropdown-menu.product li a").click(function(event, data, status, xhr) {
+    $("#buildSelector").dropdown("toggle");
+
+    var selBuild = $(this).text();
+    $(this).parents('.btn-group').find('.dropdown-toggle').html('<span class="glyphicon glyphicon-tasks"></span>' + selBuild +' <span class="caret"></span>');
+
+    event.preventDefault();
+    return $.ajax({
+      url: '/update_builds_menu',
+      type: 'GET',
+      data: { product_name: selBuild },
+      dataType: 'script'
+    });
+  });
+
+  / # Setup plugin and define optional event callbacks
+  / $('.infinite-table').infiniteScroll
+  /   debug: true
+  /   buffer: 200 # load new page when within 200px of nav link
+  /   context: '.pane' # define the scrolling container (defaults to window)
+  /   loading: ->
+  /     # jQuery callback on the nav element
+  /     $(this).text("Loading more reports...")
+  /   success: ->
+  /     # called after successful ajax call
+  /   error: ->
+  /     # called after failed ajax call
+  /     $(this).text("Trouble! Please drink some coconut water and click again")

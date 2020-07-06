@@ -1,0 +1,22 @@
+- navigation_add 'Search Results', search_reports_path
+
+%h2.page-header
+  資料查詢結果
+  %small
+    %strong
+      - if params[:product_id].present?
+        = link_to @product.title, posts_path
+      - if params[:post_id].present?
+        &gt;
+        = link_to @post.title, post_path(@post)
+      - if params[:category].present?
+        &gt;
+        = link_to params[:category], post_category_path(@post, @category)
+      - if params[:config].present?
+        &gt;
+        #{params[:config]}
+.form-group
+  .row
+    .col-md-12
+      #yield-report
+        = render :partial => "shared/yield_report"

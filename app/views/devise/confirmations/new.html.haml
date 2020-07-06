@@ -1,0 +1,12 @@
+- navigation_add '忘記密碼', new_password_path(resource_name)
+.container
+  = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, :class => "form-signin" }) do |f|
+    = bootstrap_devise_error_messages!
+    %h2.form-signin-heading 沒有收到認證信件？
+    = f.label :email, "Email address", class: "sr-only"
+    = f.email_field :email, class: "form-control required", id: "formGroupInputLarge email-field", placeholder: "註冊時使用的Email地址", autofocus: "autofocus"
+    %br
+    %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} 重新發送確認信
+    %br
+    = render "devise/shared/links"
+

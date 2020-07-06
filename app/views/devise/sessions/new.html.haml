@@ -1,0 +1,18 @@
+- navigation_add '登入帳號', new_session_path(resource)
+
+.container
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form-signin" }) do |f|
+    %h2.form-signin-heading
+      登入 Winner Stock
+    = f.label :email, "Email地址", class: "sr-only"
+    = f.email_field :email, class: "form-control required", id: "formGroupInputLarge email-field", placeholder: "你的Email地址", autofocus: "autofocus"
+    = f.label :password, "登入密碼", class: "sr-only"
+    = f.password_field :password, class: "form-control required", id: "formGroupInputLarge pwd-field", placeholder: "你的密碼"
+    - if devise_mapping.rememberable?
+      .ckbox{:style => "margin-left:0px;"}
+        = f.check_box :remember_me
+        %label{:for => "user_remember_me", :style => "margin-left:5px;"}
+          記住我
+    %button.btn.btn-lg.btn-success.btn-block{:type => "submit"} 登入帳戶
+    %br
+    = render "devise/shared/links"

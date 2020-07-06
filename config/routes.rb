@@ -14,4 +14,41 @@ Rails.application.routes.draw do
       invitation: 'invite'
     }
   root 'home#index'
+
+  resources :reports, only: [:create] do
+    get :autocomplete_category, :on => :collection
+    get :autocomplete_config, :on => :collection
+    # Search box
+    collection do
+      get :search
+      post :import
+    end
+  end
+
+  resources :posts, path: "/module", only: [:index, :show, :destroy] do
+    resources :reports, only: [:show] do
+      get :autocomplete_category_name, :on => :collection
+      get :autocomplete_report_config, :on => :collection
+      # Search box
+      collection do
+        get :search
+      end
+    end
+    resources :categories, only: [:show]
+    resources :source_files, path: "/file", only: [:index, :show, :destroy] do
+      collection do
+        delete :destroy_multiple
+      end
+    end
+  end
+
+  # For Build Dropdown Menu
+  get "/update_builds_menu" => "products#update_builds_menu"
+
+  get "/search_report" => "reports#search"
+
+  # Check if user's password correct before delete account
+  post "/delete_account" => "accounts#checkpass"
+
+  get '*anything' => 'errors#routing_error'
 end

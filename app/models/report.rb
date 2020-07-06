@@ -109,8 +109,8 @@ class Report < ApplicationRecord
     end
 
     the_year = filename[0, 4]
-    the_month = filename[4, 6]
-    the_date = filename[6, 8]
+    the_month = filename[4, 2]
+    the_date = filename[6, 2]
     post.update_attributes(current_year: the_year, current_month: the_month, current_date: the_date)
   end
 end

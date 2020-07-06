@@ -60,6 +60,14 @@ group :test do
   gem 'webdrivers'
 end
 
+group :assets do
+  gem 'autoprefixer-rails'
+  gem 'compass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+  gem 'less-rails'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
@@ -100,8 +108,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 gem 'compass'
-
-gem 'twitter-bootstrap-rails'
+gem 'rails-jquery-autocomplete'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
 gem 'devise_invitable'

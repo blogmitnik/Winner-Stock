@@ -1,0 +1,162 @@
+!!! 5
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %title= content_for?(:title) ? yield(:title) : "Winner Stock"
+
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'    
+    %link{:href => "//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/le-frog/jquery-ui.min.css", :rel => "stylesheet", 'data-turbolinks-track': 'reload'}
+    %link{:href => "/assets/bootstrap.css", :rel => "stylesheet", 'data-turbolinks-track': 'reload'}
+    %link{:href => "//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css", :rel => "stylesheet", 'data-turbolinks-track': 'reload'}
+    %script{:src => "/assets/bootstrap.js", :type => "text/javascript", 'data-turbolinks-track': 'reload'}
+    / %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js", :type => "text/javascript", 'data-turbolinks-track': 'reload'}
+    / %script{:src => "//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js", :type => "text/javascript", 'data-turbolinks-track': 'reload'}
+    //= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag "application", 'data-turbolinks-track': 'reload'
+
+    = csrf_meta_tags
+    = csp_meta_tag
+  %body
+    %nav.navbar.navbar-custom.navbar-findcond.navbar-fixed-top{:role => "navigation"}
+      .container
+        .navbar-inner
+          - if user_signed_in?
+            %button.navbar-toggle{ :type => "button", "data-toggle" => "collapse", "data-target" => ".navbar-collapse" }
+              %span.sr-only Toggle navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+
+          %a.navbar-brand{:href => "/"}
+            .text-logo 
+              Winner
+              %span.label.label-danger.text-capitalize Stock
+
+          .collapse.navbar-collapse
+            %ul.nav.navbar-nav.navbar-right
+              - if current_user
+                %li.dropdown
+                  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    = header_gravatar_for current_user
+                    = current_user.username
+                    %b.caret
+                  %ul.dropdown-menu
+                    %li
+                      %a{:href => "/register/edit", class:"presentation"}
+                        %span.glyphicon.glyphicon-cog
+                        修改帳號資料
+                    %li
+                      %a{:href => "/invite/new", class:"presentation"}
+                        %span.glyphicon.glyphicon-user
+                        邀請朋友加入
+                    %li.divider
+                    %li
+                      %a{:href => "/logout", "data-method" => "delete", class:"presentation"}
+                        %span.glyphicon.glyphicon-log-out
+                        登出
+
+              - else
+                %li
+                  %a{:href => "/login"}
+                    %span.glyphicon.glyphicon-log-in
+                    登入
+                %li
+                  %a{:href => "/register/signup"}
+                    %span.glyphicon.glyphicon-edit
+                    註冊
+
+            - if current_user
+              %ul.nav.navbar-nav.navbar
+                %li
+                  %a{:href => "/module"}
+                    %span.glyphicon.glyphicon-tasks
+                    資料查詢
+                %li
+                  %a{:href => "#"}
+                    %span.glyphicon.glyphicon-bell
+                    通知
+                    %span.badge 15
+
+    .container
+      /Indicate the current page's location within a navigational hierarchy
+      = render_navigation
+
+      =render 'layouts/toastr_message'
+
+      = content_for?(:content) ? yield(:content) : yield
+
+      =render 'layouts/footer'
+
+      %a#back-to-top.back-to-top{:href => "#"}
+        =image_tag "page-top-icon.png"
+
+    
+
+:javascript
+  $(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+
+  $(function() {
+    $('[data-toggle="popover"]').popover();
+  });
+
+  $('#back-to-top').hide();
+
+  $('.dropdown-toggle').dropdown();
+
+  $('.dropdown-menu').click(function(e) {
+    e.stopPropagation();
+  });
+
+  $('#selected-product').select2({
+    placeholder: "Select a product"
+  });
+
+  $(document).on('click', '.ranges ul li, span.month, th.next, th.prev, th.switch, span.year', function (e) {
+    e.stopPropagation();
+  });
+
+  $(function() {
+    var start = moment().subtract(0, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('input[class="daterange"]').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+
+    $('input[id="search-date-range"]').daterangepicker({
+        startDate: start,
+        endDate: end,
+        autoApply: true,
+        opens: "right",
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 3 Days': [moment().subtract(2, 'days'), moment()],
+           'Last 5 Days': [moment().subtract(4, 'days'), moment()],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()]
+        },
+        locale: {
+          format: "YYYY-MM-DD",
+          separator: " - "
+        }
+    }, cb);
+
+    cb(start, end);
+  });
+
+  $('#product-to-select').change(function(event, data, status, xhr) {
+    var e = document.getElementById("selected-product");
+    var pv = e.options[e.selectedIndex].value;
+    event.preventDefault();
+    return $.ajax({
+      url: '/update_builds_selector',
+      type: 'GET',
+      data: { product_id: pv },
+      dataType: 'script'
+    });
+  });

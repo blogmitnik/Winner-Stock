@@ -1,0 +1,123 @@
+- navigation_add '功能模組', posts_path
+
+%h2.page-header
+  功能模組
+%p.lead 從下列功能模組選擇你要查詢的資料
+
+.row
+  .build-lists
+    .col-md-12.col-md-offset-0
+      .panel.panel-custom.panel-default
+        .panel-body
+          .table-container
+            %table.table.table-hover.table-filter
+              %tbody
+                - if @posts.count > 0
+                  - @posts.each do |post|
+                    %tr{id: "build_row_#{post.id}"}
+                      %td{style: "vertical-align: middle;"}
+                        .ckbox
+                          = check_box_tag "post_ids[]", post.id, false, id: "post_ids_#{post.id}"
+                          %label{for: "post_ids_#{post.id}"}
+                      %td{style: "vertical-align: middle;"}
+                        %a.star{href: "javascript:;", title: ""}
+                          %i.glyphicon.glyphicon-star
+                      %td
+                        .media
+                          .media-body
+                            %span.media-meta.pull-right
+                              於
+                              = post.created_at.to_date.to_formatted_s(:long)
+                              新增
+                            %h4.title
+                              = link_to post.title, post_path(post)
+                              %span#delete-build.pull-right.dont_show
+                                %a.progress-load{:href => '#', class: "text-danger", id: "delete-a-build", "data-build-name" => "#{post.title}", "data-build-id" => "#{post.id}"}
+                                  %button.btn.btn-sm.btn-danger.ladda-button{"data-style" => "slide-down", "data-content" => "刪除所有資料", "data-toggle" => "popover", "data-placement" => "bottom", "data-trigger" => "hover", :type => "button"}
+                                    刪除
+                              %span#manage-files.pull-right.dont_show
+                                %a.progress-load{:href => post_source_files_path(post)}
+                                  %button.btn.btn-sm.btn-info.ladda-button{"data-style" => "slide-down", "data-content" => "管理現有文件", "data-toggle" => "popover", "data-placement" => "bottom", "data-trigger" => "hover", :type => "button"}
+                                    文件
+                            %p.summary
+                              - if post.reports.count > 0
+                                共有
+                                = @files_count
+                                個檔案
+                                %br
+                                包括
+                                = post.reports.count.to_i
+                                比分類指數資料，以及
+                                = post.mi_reports.count.to_i
+                                筆上市公司公開交易資料
+                              - else
+                                目前沒有資料
+                - else
+                  %tr
+                    %td
+                      尚未建立任何功能模組
+
+//= render :partial => "shared/csv_importer"
+
+:javascript
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('.star').on('click', function () {
+      $(this).toggleClass('star-checked');
+    });
+
+    $('.ckbox label').on('click', function () {
+      $(this).parents('tr').toggleClass('selected');
+      var checked = $(this).find("input:checkbox").is(":checked");
+      if(checked){
+        $(this).parents('tr').find('#delete-build').removeClass('dont_show');
+        $(this).parents('tr').find('#manage-files').removeClass('dont_show');
+      }
+      else {
+        $(this).parents('tr').find('#delete-build').toggleClass('dont_show');
+        $(this).parents('tr').find('#manage-files').toggleClass('dont_show');
+      }
+    });
+  });
+
+  $("a#delete-a-build").click(function(event) {
+    event.preventDefault();
+    var buildName = $(this).attr("data-build-name");
+    var buildId = $(this).attr("data-build-id");
+    deleteBuild(buildName, buildId);
+  });
+
+  function deleteBuild(buildName, buildId) {
+    swal({
+      title: "你確定嗎？", 
+      text: buildName + "模組和所有資料將被刪除！", 
+      type: "warning",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      confirmButtonClass: "btn-warning",
+      confirmButtonText: "刪除",
+      cancelButtonText: "取消",
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, function() {
+      $.ajax({
+        url: "/module/" + buildId,
+        type: "DELETE",
+        dataType: 'script'
+      })
+      .done(function(data) {
+        swal("資料已成功刪除", buildName + " 模組的資料已經全部刪除！", "success");
+        $("#build_row_" + buildId).fadeOut();
+
+        $('button.confirm').click(function() {
+          setTimeout(function(){
+            $(location).attr('href', "/module")
+          }, 200);
+        });
+      })
+      .error(function(data) {
+        swal("發生未知的錯誤", "抱歉，連接網路服務時發生錯誤！", "error");
+      });
+    });
+  }

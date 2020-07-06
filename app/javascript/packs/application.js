@@ -9,15 +9,20 @@ require("@rails/activestorage").start()
 require("channels")
 
 var jQuery = require("jquery");
-
-// import jQuery from "jquery";
 global.$ = global.jQuery = jQuery;
 window.$ = window.jQuery = jQuery;
 
-require("bootstrap");
+//require("bootstrap");
+
+require("jquery-ui-dist/jquery-ui");
+// jquery-ui theme
+//require.context('file-loader?name=[path][name].[ext]&context=node_modules/jquery-ui-dist!jquery-ui-dist', true, /jquery-ui\.css/);
+//require.context('file-loader?name=[path][name].[ext]&context=node_modules/jquery-ui-dist!jquery-ui-dist', true, /jquery-ui\.theme\.css/);
 
 global.toastr = require("toastr")
-import "../stylesheets/application"
+import "bootstrap";
+import "@fortawesome/fontawesome-free/js/all";
+import "../stylesheets/application";
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)

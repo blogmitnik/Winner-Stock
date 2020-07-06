@@ -1,0 +1,14 @@
+- navigation_add "功能模組", posts_path
+- navigation_add @post.title, post_path(@post)
+- navigation_add @category.name, post_report_path(@post)
+
+%h2.page-header
+  = @category.name
+  %small #{@report.published_at.to_date.to_formatted_s(:long)} 的交易資料
+  
+.row
+  .container
+    .form-group
+    - if @reports.count > 0
+      #yield-report
+        = render :partial => "yield_by_config"

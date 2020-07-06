@@ -1,0 +1,9 @@
+%li.list-group-item{:id => "file_#{file.id}"}
+  %span.badge
+    = file.reports.count.to_i
+  .media-left
+    %a{:href => post_yield_file_path(@post, file), data: { method: :delete, confirm: '刪除這個文件，會同時刪除它所包含的資料，確定要繼續嗎？' }}
+      %span.glyphicon.glyphicon-trash
+  .media-body
+    %a{:href => post_yield_file_path(@post, file)}
+      =file.file_name
