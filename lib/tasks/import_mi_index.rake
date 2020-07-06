@@ -12,7 +12,7 @@ task :import_mi_index, [:filename] => :environment do
     no_row_files = []
     filtered_csvs = []
     check_filename_date = []
-    target_folder = Dir.home + '/desktop/mi_index_csv'
+    target_folder = Dir.home + '/mi_index_csv'
     # Define the folder of CSV files
 	d = Dir.new(target_folder)
 	#Dir.chdir(d)

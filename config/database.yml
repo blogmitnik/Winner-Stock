@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: winner_stock_production
-  username: winner_stock
-  password: <%= ENV['WINNER_STOCK_DATABASE_PASSWORD'] %>
+  username: testuser
+  #password: <%= ENV['WINNER_STOCK_DATABASE_PASSWORD'] %>
