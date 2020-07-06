@@ -1,18 +1,18 @@
-%ul.nav.nav-pills.nav-wizard{:style => "margin-top: 10px; margin-bottom: 20px;"}
+#responsive-bc.btn-group.btn-breadcrumb{:style => "margin-top: 10px; margin-bottom: 20px;"}
   - nav.each do |n|
     - if n.equal? nav.first
-      %li.active
-        %a{:href => n[:url]}
-          = n[:title]
-        .nav-arrow
+      %a{:href => n[:url], class: "btn btn-default"}
+        %span.glyphicon.glyphicon-home
+        = n[:title]
     - elsif n.equal? nav.last
-      %li.disabled
-        .nav-wedge
-        %a{:href => "#"}
-          = n[:title]
+      %a{:href => "#", class: "btn btn-default disabled"}
+        = n[:title]
     - else
-      %li
-        .nav-wedge
-        %a{:href => n[:url]}
-          = n[:title]
-        .nav-arrow
+      %a{:href => n[:url], class: "btn btn-default"}
+        = n[:title]
+
+:javascript
+  $(window).resize(function() {
+    ellipses = $("#responsive-bc :nth-child(2)")
+    if ($("#responsive-bc a:hidden").length >0) {ellipses.show()} else {ellipses.hide()} 
+  })
