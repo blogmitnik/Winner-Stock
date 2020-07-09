@@ -7,13 +7,11 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
     %title= content_for?(:title) ? yield(:title) : "Winner Stock"
 
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'    
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' 
     %link{:href => "//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/le-frog/jquery-ui.min.css", :rel => "stylesheet", 'data-turbolinks-track': 'reload'}
-    %link{:href => "/assets/bootstrap.css", :rel => "stylesheet", 'data-turbolinks-track': 'reload'}
+    %link{:href => "//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", :rel => "stylesheet", 'data-turbolinks-track': 'reload'}
     %link{:href => "//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css", :rel => "stylesheet", 'data-turbolinks-track': 'reload'}
-    %script{:src => "/assets/bootstrap.js", :type => "text/javascript", 'data-turbolinks-track': 'reload'}
-    / %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js", :type => "text/javascript", 'data-turbolinks-track': 'reload'}
-    / %script{:src => "//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js", :type => "text/javascript", 'data-turbolinks-track': 'reload'}
+    %script{:src => "//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js", :type => "text/javascript", 'data-turbolinks-track': 'reload'}
     //= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_include_tag "application", 'data-turbolinks-track': 'reload'
 

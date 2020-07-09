@@ -52,7 +52,7 @@ class MiReport < ApplicationRecord
       # Define CSV header columns
       column_header = ['證券代號', '證券名稱', '成交股數', '成交筆數', '成交金額', '開盤價', '最高價', '最低價', '收盤價', '漲跌', '漲跌價差', '最後揭示買價', '最後揭示買量', '最後揭示賣價', '最後揭示賣量', '本益比']
       # Define mapping table
-      index_name_table=  ['N/A', '水泥類指數', '食品類指數', '塑膠類指數', '紡織纖維類指數', '電機機械類指數', '電器電纜類指數', '化學生技醫療類指數', '玻璃陶瓷類指數', '造紙類指數', '鋼鐵類指數', '橡膠類指數', '汽車類指數', '電子類指數', '建材營造類指數', '航運業類指數', '觀光事業類指數', '金融保險類指數', '貿易百貨類指數', 'N/A', '其他類指數', '化學類指數', '生技醫療類指數', '油電燃氣類指數', '半導體類指數', '電腦及週邊設備類指數', '光電類指數', '通信網路類指數', '電子零組件類指數', '電子通路類指數', '資訊服務類指數', '其他電子類指數']
+      index_name_table=  ['N/A', '水泥類指數', '食品類指數', '塑膠類指數', '紡織纖維類指數', '電機機械類指數', '電器電纜類指數', '化學生技醫類指數', '玻璃陶瓷類指數', '造紙類指數', '鋼鐵類指數', '橡膠類指數', '汽車類指數', '電子類指數', '建材營造類指數', '航運業類指數', '觀光類指數', '金融保險類指數', '貿易百貨類指數', 'N/A', '其他類指數', '化學類指數', '生技醫類指數', '油電燃氣類指數', '半導體類指數', '電腦及週邊設備類指數', '光電類指數', '通信網路類指數', '電子零組件類指數', '電子通路類指數', '資訊服務類指數', '其他電子類指數']
       
       sum_of_shares = 0
       sum_of_closing = 0
@@ -68,7 +68,7 @@ class MiReport < ApplicationRecord
       CSV.foreach(file, **{encoding: "big5", quote_char: '"', col_sep: ',', row_sep: :auto, headers: column_header}).with_index(0) do |row, rowno|
         if rowno > 2 and rowno < line_count.to_i-4
           csv_type_num = filename[9, 2].to_i
-          category = Category.find_by_name_and_post_id(index_name_table[csv_type_num], post.id)
+          category = Category.find_by_name_and_post_id(index_name_table[csv_type_num].gsub('類指數', ''), post.id)
           category_id = category.id
 
           shares_percentage = ((row['成交股數'].gsub(',', '').to_f / sum_of_shares.to_f) * 100).round(2)

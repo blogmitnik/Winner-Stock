@@ -14,13 +14,11 @@ ActiveRecord::Schema.define(version: 2020_07_01_041056) do
 
   create_table "categories", id: :string, limit: 36, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "post_id", null: false
-    t.string "source_file_id", null: false
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_categories_on_name"
     t.index ["post_id"], name: "index_categories_on_post_id"
-    t.index ["source_file_id"], name: "index_categories_on_source_file_id"
   end
 
   create_table "friendly_id_slugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

@@ -57,7 +57,7 @@ task :import_bfiamu, [:filename] => :environment do
         # 	no_row_files << file
         # 	next
         else # Process the CSV files that we actually need
-        	model_stage = 'BFIAMU'
+        	model_stage = '上市公司指數'
         	if post = Post.find_by_title(model_stage)
         		Report.import_data(file, filename, post)
         		# Check total imported row counts

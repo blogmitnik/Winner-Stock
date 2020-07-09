@@ -79,11 +79,11 @@ class Report < ApplicationRecord
       
       CSV.foreach(file, **{encoding: "big5", quote_char: '"', col_sep: ',', row_sep: :auto, headers: column_header}).with_index(0) do |row, rowno|
         if rowno > 1 and rowno < line_count-2
-          if category = Category.find_by_name_and_post_id(row['分類指數名稱'].strip, post.id)
+          if category = Category.find_by_name(row['分類指數名稱'].gsub('醫療', '醫').gsub('百貨貿易', '貿易百貨').gsub('營造建材', '建材營造').gsub('運輸', '航運業').gsub('事業', '').gsub('工業', '').gsub('它', '他').gsub('類', '').gsub('指', '').gsub('數', '').gsub('　', '').strip.to_s)
             category_id = category.id
           else
-          	c_uuid = SecureRandom.uuid
-            category = Category.create(id: c_uuid, post_id: post.id, source_file_id: csvfile_id, name: row['分類指數名稱'].strip.to_s)
+            c_uuid = SecureRandom.uuid
+            category = Category.create(id: c_uuid, post_id: post.id, name: row['分類指數名稱'].gsub('醫療', '醫').gsub('百貨貿易', '貿易百貨').gsub('營造建材', '建材營造').gsub('運輸', '航運業').gsub('事業', '').gsub('工業', '').gsub('它', '他').gsub('類', '').gsub('指', '').gsub('數', '').gsub('　', '').strip.to_s)
             category_id = category.id
           end
 
@@ -92,7 +92,7 @@ class Report < ApplicationRecord
 
           time_now = Time.now.strftime('%Y-%m-%d %H:%M:%S').to_s
           report_uuid = SecureRandom.uuid
-          record = [report_uuid, post.id, csvfile_id, category_id, row['分類指數名稱'].strip.to_s, row['成交股數'].gsub(',', ''), row['成交金額'].gsub(',', ''), row['成交筆數'].gsub(',', ''), row['漲跌指數'], 
+          record = [report_uuid, post.id, csvfile_id, category_id, row['分類指數名稱'].gsub('醫療', '醫').gsub('百貨貿易', '貿易百貨').gsub('營造建材', '建材營造').gsub('運輸', '航運業').gsub('事業', '').gsub('工業', '').gsub('它', '他').gsub('類', '').gsub('指', '').gsub('數', '').gsub('　', '').strip.to_s, row['成交股數'].gsub(',', ''), row['成交金額'].gsub(',', ''), row['成交筆數'].gsub(',', ''), row['漲跌指數'],
             shares_percentage, closing_percentage,
             Time.parse(filename.gsub('.csv', '')).strftime('%Y-%m-%d %H:%M:%S').to_s, Time.parse(filename.gsub('.csv', '').to_s).year, Time.parse(filename.gsub('.csv', '').to_s).month, Time.parse(filename.gsub('.csv', '').to_s).day,
             time_now, time_now]
