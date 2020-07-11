@@ -21,6 +21,7 @@ class User < ApplicationRecord
 	# Add validations for the username and full name length
 	validates :name, :username, presence: true, length: { minimum: 2, maximum: 25 }
 	validates_uniqueness_of :username, :email, case_sensitive: false
+	validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
 
 	after_create :send_admin_mail
 
