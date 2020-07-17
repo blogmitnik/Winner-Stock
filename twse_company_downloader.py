@@ -95,6 +95,6 @@ def save_csvfile(stock_no):
         #exit(0)
 
 if __name__ == "__main__":
-    # for stock_no in stock_no_list:
-    #     save_csvfile(stock_no)
-    save_csvfile("4968")
+    for stock_no in stock_no_list:
+        save_csvfile(stock_no)
+
