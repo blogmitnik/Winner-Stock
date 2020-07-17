@@ -93,6 +93,7 @@ gem 'formtastic'
 gem 'thor'
 gem 'oauth2'
 gem "omniauth-facebook"
+gem 'omniauth-google-oauth2'
 gem "koala"
 gem "nokogiri"
 gem "bcrypt"
@@ -112,6 +113,10 @@ gem 'rails-jquery-autocomplete'
 gem 'devise-i18n'
 gem 'devise-bootstrap-views'
 gem 'devise_invitable'
+
+# User Role Management
+gem 'pundit'
+gem 'rolify'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-fileinput'

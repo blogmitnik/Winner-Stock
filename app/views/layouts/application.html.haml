@@ -36,25 +36,64 @@
           .collapse.navbar-collapse
             %ul.nav.navbar-nav.navbar-right
               - if current_user
+                / %li.dropdown
+                /   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                /     = header_gravatar_for current_user
+                /     = current_user.username
+                /     %b.caret
+                /   %ul.dropdown-menu
+                /     %li
+                /       %a{:href => "/register/edit", class:"presentation"}
+                /         %span.glyphicon.glyphicon-cog
+                /         修改帳號資料
+                /     %li
+                /       %a{:href => "/invite/new", class:"presentation"}
+                /         %span.glyphicon.glyphicon-user
+                /         邀請朋友加入
+                /     %li.divider
+                /     %li
+                /       %a{:href => "/logout", "data-method" => "delete", class:"presentation"}
+                /         %span.glyphicon.glyphicon-log-out
+                /         登出
+
                 %li.dropdown
                   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                    = header_gravatar_for current_user
-                    = current_user.username
-                    %b.caret
+                    %span.glyphicon.glyphicon-user>
+                     
+                    %strong
+                      = current_user.name.split(" ").first
+                    %span.glyphicon.glyphicon-chevron-down
                   %ul.dropdown-menu
                     %li
-                      %a{:href => "/register/edit", class:"presentation"}
-                        %span.glyphicon.glyphicon-cog
-                        修改帳號資料
-                    %li
-                      %a{:href => "/invite/new", class:"presentation"}
-                        %span.glyphicon.glyphicon-user
-                        邀請朋友加入
+                      .navbar-login
+                        .row
+                          .col-lg-4
+                            %p.text-center
+                              = gravatar_for current_user
+                          .col-lg-8
+                            %p.text-left
+                              %strong 
+                                = current_user.name
+                            %p.text-left.small
+                              = current_user.email
+                            %p.text-left
+                              %a.btn.btn-basecamp.btn-block.btn-sm{:href => "/register/edit", class:"presentation"}
+                                %span.glyphicon.glyphicon-edit
+                                修改帳號資料
+                            %p.text-left
+                              %a.btn.btn-basecamp.btn-block.btn-sm{:href => "/invite/new", class:"presentation"}
+                                %span.glyphicon.glyphicon-user
+                                邀請朋友加入
                     %li.divider
                     %li
-                      %a{:href => "/logout", "data-method" => "delete", class:"presentation"}
-                        %span.glyphicon.glyphicon-log-out
-                        登出
+                      .navbar-login.navbar-login-session
+                        .row
+                          .col-lg-12
+                            %p
+                              %a.btn.btn-zoomshift.btn-block.btn-sm{:href => "/logout", "data-method" => "delete", class:"presentation"}
+                                %span.glyphicon.glyphicon-log-out
+                                登出帳號
+
 
               - else
                 %li
@@ -77,6 +116,14 @@
                     %span.glyphicon.glyphicon-bell
                     通知
                     %span.badge 15
+              .col-sm-3.col-md-3
+                %form.navbar-form{:role => "search"}
+                  .input-group
+                    %input.form-control{:name => "q", :placeholder => "公司名稱或股票代號", :type => "text"}
+                    .input-group-btn
+                      %button.btn.btn-default{:type => "submit"}
+                        %i.fa.fa-search
+
 
     .container
       /Indicate the current page's location within a navigational hierarchy

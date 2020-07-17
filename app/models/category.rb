@@ -4,6 +4,7 @@ class Category < ApplicationRecord
 	belongs_to :post
 	has_many :reports, dependent: :destroy
 	has_many :mi_reports, dependent: :destroy
+	has_many :companies, dependent: :destroy
 
 	validates :name, :post_id, presence: true
 

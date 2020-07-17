@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   use_doorkeeper
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # Extending Devise - Custom Routing
-  devise_for :users,
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' },
     path: '', # optional namespace or empty string for no space
     path_names: {
       sign_in: 'login',

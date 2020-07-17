@@ -5,6 +5,9 @@ class SourceFile < ApplicationRecord
 	has_many :reports, dependent: :destroy
 	has_many :mi_reports, dependent: :destroy
 	has_many :categories
+	has_many :companies, dependent: :destroy
+	has_many :income_statements, dependent: :destroy
+	has_many :balance_sheets, dependent: :destroy
 
 	validates :file_name, presence: true, uniqueness: true
 	validates :post_id, :total_row, :published_at, presence: true

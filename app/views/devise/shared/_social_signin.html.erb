@@ -1,0 +1,17 @@
+<div class="registration-button">
+	<%- if devise_mapping.omniauthable? %>
+		<%- resource_class.omniauth_providers.each do |provider| %>
+			<%- pretty_provider = OmniAuth::Utils.camelize(provider) == 'GoogleOauth2' ? "google": provider %>
+				<% if pretty_provider == 'google' %>
+					<% auth_path = user_google_oauth2_omniauth_authorize_path %>
+				<% else %>
+					<% auth_path = user_facebook_omniauth_authorize_path %>
+				<% end %>
+
+				<a href="<%= auth_path %>" class="btn btn-block btn-social btn-<%= pretty_provider %>">
+				<span class="fa fa-<%= pretty_provider %>"></span> 
+				<%= pretty_provider.capitalize %> 帳號登入
+				</a><br />
+			<% end -%>
+	<% end %>
+</div>

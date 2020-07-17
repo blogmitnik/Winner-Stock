@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   	has_many :mi_reports, dependent: :destroy
   	has_many :source_files, dependent: :destroy
   	has_many :categories, dependent: :destroy
+  	has_many :companies, dependent: :destroy
 
 	validates :title, presence: true, length: { :minimum => 3, :maximum => 255 }
 	validates :slug, presence: true

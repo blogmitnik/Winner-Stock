@@ -28,6 +28,11 @@
 @import "ladda";
 @import "ladda-themed";
 @import "style";
+@import "bootstrap-social";
+
+.or-separator{position:relative;border-top:1px solid #e3e4e8;margin:10px auto;height:1px !important;font-size:12px;margin:30px auto}
+p.or-separator:after{position:absolute;content:"OR";background-color:#fff;display:block;text-align:center;line-height:normal;color:#999999;left:50%;top:-0.75em;margin-left:-1.5em;padding:0 0.5em}
+p.or-separator:after{content:"或者";width:50px;padding:0;margin-left:-25px}
 
 body {
   padding-top: 60px;
@@ -39,6 +44,10 @@ body, h1, h2, h3, h4, h5, h6, p, a, td, li, .btn {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #4A4A4A;
+}
+
+.registration-button .btn-social {
+  color: #fff;
 }
 
 .section_topic {
@@ -344,6 +353,20 @@ $colBadge       : #2f92ca;
   min-width: 150px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+}
+
+.navbar-login
+{
+  width: 305px;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+  padding: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 /* Links inside the dropdown */

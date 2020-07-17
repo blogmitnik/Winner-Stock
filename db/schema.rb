@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_01_041056) do
+ActiveRecord::Schema.define(version: 2020_07_14_030256) do
+
+  create_table "balance_sheets", id: :string, limit: 36, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "company_id", null: false
+    t.string "source_file_id", null: false
+    t.string "stock_no", null: false
+    t.integer "year", null: false
+    t.integer "quarter", null: false
+    t.bigint "fixed_asset", null: false
+    t.bigint "asset", null: false
+    t.bigint "current_liability", null: false
+    t.bigint "liability", null: false
+    t.bigint "share_capital", null: false
+    t.bigint "additional_paid_in_capital", null: false
+    t.bigint "retained_earnings", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_balance_sheets_on_company_id"
+    t.index ["source_file_id"], name: "index_balance_sheets_on_source_file_id"
+    t.index ["stock_no", "year", "quarter"], name: "index_balance_sheets_on_stock_no_and_year_and_quarter"
+  end
 
   create_table "categories", id: :string, limit: 36, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "post_id", null: false
@@ -19,6 +39,30 @@ ActiveRecord::Schema.define(version: 2020_07_01_041056) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_categories_on_name"
     t.index ["post_id"], name: "index_categories_on_post_id"
+  end
+
+  create_table "companies", id: :string, limit: 36, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "post_id", null: false
+    t.string "source_file_id", null: false
+    t.string "category_id", null: false
+    t.string "stock_no", null: false
+    t.string "name", null: false
+    t.string "eng_name", null: false
+    t.string "industry_name"
+    t.string "sub_industry_name"
+    t.text "main_business"
+    t.bigint "capital", null: false
+    t.datetime "founded_date", null: false
+    t.bigint "issued_common_stock", null: false
+    t.bigint "par_value_per_share", null: false
+    t.string "stock_market", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_companies_on_category_id"
+    t.index ["name"], name: "index_companies_on_name"
+    t.index ["post_id"], name: "index_companies_on_post_id"
+    t.index ["source_file_id"], name: "index_companies_on_source_file_id"
+    t.index ["stock_no"], name: "index_companies_on_stock_no"
   end
 
   create_table "friendly_id_slugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -32,6 +76,27 @@ ActiveRecord::Schema.define(version: 2020_07_01_041056) do
     t.index ["slug", "sluggable_type", "locale"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_locale", length: { slug: 140, locale: 2 }
     t.index ["slug", "sluggable_type", "scope", "locale"], name: "index_friendly_id_slugs_uniqueness", unique: true, length: { slug: 70, scope: 70, locale: 2 }
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "income_statements", id: :string, limit: 36, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "company_id", null: false
+    t.string "source_file_id", null: false
+    t.string "stock_no", null: false
+    t.integer "year", null: false
+    t.integer "quarter", null: false
+    t.bigint "total_revenue", null: false
+    t.bigint "cost_of_revenue", null: false
+    t.bigint "gross_revenue", null: false
+    t.bigint "operating_expanse", null: false
+    t.bigint "operating_balance", null: false
+    t.bigint "income_before_tax", null: false
+    t.bigint "net_income", null: false
+    t.bigint "eps", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_income_statements_on_company_id"
+    t.index ["source_file_id"], name: "index_income_statements_on_source_file_id"
+    t.index ["stock_no", "year", "quarter"], name: "index_income_statements_on_stock_no_and_year_and_quarter"
   end
 
   create_table "mi_reports", id: :string, limit: 36, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -220,6 +285,9 @@ ActiveRecord::Schema.define(version: 2020_07_01_041056) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.string "provider"
+    t.string "uid"
+    t.text "image"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

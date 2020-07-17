@@ -270,6 +270,10 @@ GEM
       rack (>= 1.6.2, < 3)
     omniauth-facebook (6.0.0)
       omniauth-oauth2 (~> 1.2)
+    omniauth-google-oauth2 (0.8.0)
+      jwt (>= 2.0)
+      omniauth (>= 1.1.1)
+      omniauth-oauth2 (>= 1.6)
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
@@ -280,6 +284,8 @@ GEM
     public_suffix (4.0.5)
     puma (4.3.5)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.2.3)
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
@@ -356,6 +362,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rolify (5.3.0)
     rubyzip (2.3.0)
     sass (3.4.25)
     sass-rails (6.0.0)
@@ -482,13 +489,16 @@ DEPENDENCIES
   nokogiri
   oauth2
   omniauth-facebook
+  omniauth-google-oauth2
   parallel
   puma (~> 4.1)
+  pundit
   rails (~> 6.0.3, >= 6.0.3.2)
   rails-assets-bootstrap-fileinput!
   rails-i18n
   rails-jquery-autocomplete
   rails_admin
+  rolify
   sass-rails (>= 6)
   selenium-webdriver
   sidekiq (~> 6.0, >= 6.0.1)

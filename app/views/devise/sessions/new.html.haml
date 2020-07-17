@@ -15,7 +15,9 @@
           記住我
     /%button.btn.btn-lg.btn-success.btn-block{:type => "submit"} 登入帳戶
     = submit_tag '登入帳戶', class: 'btn btn-lg btn-success btn-block tclick', id: 'login', data: { disable_with: "正在登入..." }
-    %br
+    %p.or-separator
+      = render "devise/shared/social_signin"
+
     = render "devise/shared/links"
 
 :javascript
