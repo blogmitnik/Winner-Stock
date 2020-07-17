@@ -116,13 +116,16 @@
                     %span.glyphicon.glyphicon-bell
                     通知
                     %span.badge 15
-              .col-sm-3.col-md-3
-                %form.navbar-form{:role => "search"}
-                  .input-group
-                    %input.form-control{:name => "q", :placeholder => "公司名稱或股票代號", :type => "text"}
-                    .input-group-btn
-                      %button.btn.btn-default{:type => "submit"}
-                        %i.fa.fa-search
+              %form.navbar-search.navbar-form.navbar-left{:action=>"/services", :method => :get, "accept-charset" => "UTF-8", :id=>"service_search", :class=>"service_search"}
+                = form_tag posts_path, method: :post, id: "search-reports", class: 'navbar-search navbar-form navbar-left' do
+                  #custom-search-input
+                    .input-group.col-md-12
+                      %input.form-control.input-sm{:name => "q", :placeholder => "公司名稱或股票代號", :type => "text"}
+                      %span.input-group-btn
+                        .btn-group{:role => "group"}
+                          .dropdown.dropdown-lg
+                            %button.btn.btn-info.btn-sm{:type => "submit"}
+                              %i.glyphicon.glyphicon-search
 
 
     .container
