@@ -1,7 +1,9 @@
 %tbody
   - @files.each do |file|
     // Get substring from file_name
-    - if file.file_name.to_s.include? "MI-INDEX-"
+    - if file.file_name.to_s.include? "TWSE-"
+      - strip_str = "TWSE"
+    - elsif file.file_name.to_s.include? "MI-INDEX-"
       - strip_str = "MI-INDEX"
     - else
       - strip_str = "BFIAMU"
@@ -13,7 +15,9 @@
           %label{:for => "file_ids_#{file.id}"}
       %td{:style => "width: 68%; vertical-align: middle;"}
         .media
-          - if strip_str.eql? 'MI-INDEX'
+          - if strip_str.eql? 'TWSE'
+            - color = 'primary'
+          - elsif strip_str.eql? 'MI-INDEX'
             - color = 'danger'
           -elsif strip_str.eql? 'BFIAMU'
             - color = 'info'
@@ -25,7 +29,9 @@
                 =file.file_name
             %small
               包含
-              - if file.file_name.to_s.include? "MI-INDEX-"
+              - if strip_str.eql? 'TWSE'
+                = file.total_row.to_i - 1
+              - elsif strip_str.eql? 'MI-INDEX'
                 = file.total_row.to_i - 7
               - else
                 = file.total_row.to_i - 4

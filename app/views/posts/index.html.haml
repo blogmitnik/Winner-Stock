@@ -41,15 +41,17 @@
                                     文件
                             %p.summary
                               - if post.reports.count > 0
-                                共有
+                                共
                                 = @files_count
-                                個檔案
+                                個檔案已匯入
                                 %br
-                                包括
+                                包含
+                                = post.companies.count.to_i
+                                筆上市公司資料，以及
                                 = post.reports.count.to_i
-                                比分類指數資料，以及
+                                筆分類指數交易資料，以及
                                 = post.mi_reports.count.to_i
-                                筆上市公司公開交易資料
+                                筆上市公司證券交易資料
                               - else
                                 目前沒有資料
                 - else

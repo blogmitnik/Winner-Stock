@@ -82,7 +82,7 @@ def save_csvfile(stock_no):
                 output_rows.append(column_rows)
 
                 # Write data to csv file
-                with open(os.path.join(write_path, stock_no + '.csv'), 'w', encoding='utf8', newline='') as csvfile:
+                with open(os.path.join(write_path, 'TWSE-' + stock_no + '.csv'), 'w', encoding='utf8', newline='') as csvfile:
                     writer = csv.writer(csvfile)
                     writer.writerows(output_rows)
             time.sleep(5)
