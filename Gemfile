@@ -76,7 +76,7 @@ gem 'friendly_id', '~> 5.3'
 gem 'friendly_id-globalize'
 gem 'globalize'
 gem 'globalize-accessors'
-gem 'sidekiq', '~> 6.0', '>= 6.0.1'
+gem 'sidekiq', '~> 6.4'
 
 gem 'whenever', :require => false
 gem 'activerecord-import'
